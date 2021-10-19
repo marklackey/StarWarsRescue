@@ -90,14 +90,22 @@ window.addEventListener("keyup", function(e) {
     delete keys[e.keyCode];
     player.moving = false;
 });
+button.addEventListener("touchstart", function(e) {
+    keys[38] = true;
+    player.moving = true;
+});
 button.addEventListener("mousedown", function(e) {
     keys[38] = true;
     player.moving = true;
-})
+});
 button.addEventListener("mouseup", function(e) {
     keys[38] = false;
     player.moving = false;
-})
+});
+button.addEventListener("touchend", function(e) {
+    keys[38] = false;
+    player.moving = false;
+});
 
 function movePlayer() {
     let playerSpeed = player.speed;
