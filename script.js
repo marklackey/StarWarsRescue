@@ -7,8 +7,8 @@ let frame = 0;
 let score = 1000 * 1000;
 
 const button = document.getElementById("up");
-button.style.left = canvas.offsetLeft + canvas.width / 2 - 50 + "px";
-button.style.top = canvas.offsetTop + canvas.height / 2 - 50 + "px";
+button.style.left = canvas.offsetLeft + canvas.width / 2 - 150 + "px";
+button.style.top = canvas.offsetTop + canvas.height / 2 - 150 + "px";
 console.log(button.style.left)
 
 const NUM_PUMPKINS = 2;
