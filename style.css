@@ -9,6 +9,10 @@ canvas {
 
 button {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 5vmax;
+    height: 5vmax;
+    font-size: 2rem;
+    border-radius: 10%;
+    background-color: lightblue;
+    opacity: .6;
 }

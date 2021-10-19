@@ -1,23 +1,24 @@
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+const canvasMax = canvas.width > canvas.height ? canvas.width : canvas.height;
+
 let frame = 0;
 let score = 1000 * 1000;
 
 const upButton = document.getElementById("up");
-upButton.style.left = canvas.offsetLeft + canvas.width / 2 - 225 + "px";
-upButton.style.top = canvas.offsetTop + canvas.height / 2 - 300 + "px";
+upButton.style.left = "88vmax";
+upButton.style.top = (canvas.height - .12 * canvasMax) + "px";
 const downButton = document.getElementById("down");
-downButton.style.left = canvas.offsetLeft + canvas.width / 2 - 225 + "px";
-downButton.style.top = canvas.offsetTop + canvas.height / 2 - 150 + "px";
+downButton.style.left = "88vmax";
+downButton.style.top = (canvas.height - .06 * canvasMax) + "px";
 const leftButton = document.getElementById("left");
-leftButton.style.left = canvas.offsetLeft + canvas.width / 2 - 350 + "px";
-leftButton.style.top = canvas.offsetTop + canvas.height / 2 - 225 + "px";
+leftButton.style.left = "82vmax";
+leftButton.style.top = (canvas.height - .09 * canvasMax) + "px";
 const rightButton = document.getElementById("right");
-rightButton.style.left = canvas.offsetLeft + canvas.width / 2 - 100 + "px";
-rightButton.style.top = canvas.offsetTop + canvas.height / 2 - 225 + "px";
+rightButton.style.left = "94vmax";
+rightButton.style.top = (canvas.height - .09 * canvasMax) + "px";
 
 
 
