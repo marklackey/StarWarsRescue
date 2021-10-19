@@ -6,12 +6,24 @@ canvas.height = window.innerHeight;
 let frame = 0;
 let score = 1000 * 1000;
 
-const button = document.getElementById("up");
-button.style.left = canvas.offsetLeft + canvas.width / 2 - 150 + "px";
-button.style.top = canvas.offsetTop + canvas.height / 2 - 150 + "px";
-console.log(button.style.left)
+const upButton = document.getElementById("up");
+upButton.style.left = canvas.offsetLeft + canvas.width / 2 - 225 + "px";
+upButton.style.top = canvas.offsetTop + canvas.height / 2 - 300 + "px";
+const downButton = document.getElementById("down");
+downButton.style.left = canvas.offsetLeft + canvas.width / 2 - 225 + "px";
+downButton.style.top = canvas.offsetTop + canvas.height / 2 - 150 + "px";
+const leftButton = document.getElementById("left");
+leftButton.style.left = canvas.offsetLeft + canvas.width / 2 - 350 + "px";
+leftButton.style.top = canvas.offsetTop + canvas.height / 2 - 225 + "px";
+const rightButton = document.getElementById("right");
+rightButton.style.left = canvas.offsetLeft + canvas.width / 2 - 100 + "px";
+rightButton.style.top = canvas.offsetTop + canvas.height / 2 - 225 + "px";
 
-const NUM_PUMPKINS = 2;
+
+
+console.log(upButton.style.left)
+
+const NUM_PUMPKINS = 20;
 const SQRT_2 = Math.sqrt(2);
 
 let GAME_OVER = false;
@@ -32,7 +44,6 @@ const player = {
     moving: false
 };
 
-
 class Pumpkin {
     constructor(x, y) {
         this.x = x;
@@ -41,7 +52,7 @@ class Pumpkin {
         this.frameY = 1;
         this.width = 124;
         this.height = 118;
-        this.speed = 2;
+        this.speed = 7;
         this.direction = 1;
     }
 }
@@ -81,59 +92,6 @@ function drawPlayerSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 
 function drawPumpkinSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
-}
-window.addEventListener("keydown", function(e) {
-    keys[e.keyCode] = true;
-    player.moving = true;
-});
-window.addEventListener("keyup", function(e) {
-    delete keys[e.keyCode];
-    player.moving = false;
-});
-button.addEventListener("touchstart", function(e) {
-    keys[38] = true;
-    player.moving = true;
-});
-button.addEventListener("mousedown", function(e) {
-    keys[38] = true;
-    player.moving = true;
-});
-button.addEventListener("mouseup", function(e) {
-    keys[38] = false;
-    player.moving = false;
-});
-button.addEventListener("touchend", function(e) {
-    keys[38] = false;
-    player.moving = false;
-});
-
-function movePlayer() {
-    let playerSpeed = player.speed;
-    if ((keys[38] && keys[37]) || (keys[38] && keys[39]) || (keys[40] && keys[37]) || (keys[40] && keys[39])) {
-        playerSpeed = playerSpeed / SQRT_2;
-    }
-    if (keys[38] && player.y > 0) {
-        player.y -= playerSpeed;
-        player.frameY = 3;
-        player.moving = true;
-    }
-    if (keys[37] && player.x > 0) {
-        player.x -= playerSpeed;
-        player.frameY = 1;
-        player.moving = true;
-        score -= 5000;
-    }
-    if (keys[40] && player.y < canvas.height - imageHeight) {
-        player.y += playerSpeed;
-        player.frameY = 0;
-        player.moving = true;
-    }
-    if (keys[39] && player.x < canvas.width - imageWidth) {
-        player.x += playerSpeed;
-        player.frameY = 2;
-        player.moving = true;
-        score -= 5000;
-    }
 }
 
 function handlePlayerFrame() {
@@ -217,4 +175,105 @@ function animate() {
     }
 
 }
+
+window.addEventListener("keydown", function(e) {
+    keys[e.keyCode] = true;
+    player.moving = true;
+});
+
+window.addEventListener("keyup", function(e) {
+    delete keys[e.keyCode];
+    player.moving = false;
+});
+
+function movePlayer() {
+    let playerSpeed = player.speed;
+    if ((keys[38] && keys[37]) || (keys[38] && keys[39]) || (keys[40] && keys[37]) || (keys[40] && keys[39])) {
+        playerSpeed = playerSpeed / SQRT_2;
+    }
+    if (keys[38] && player.y > 0) {
+        player.y -= playerSpeed;
+        player.frameY = 3;
+        player.moving = true;
+    }
+    if (keys[37] && player.x > 0) {
+        player.x -= playerSpeed;
+        player.frameY = 1;
+        player.moving = true;
+        score -= 5000;
+    }
+    if (keys[40] && player.y < canvas.height - imageHeight) {
+        player.y += playerSpeed;
+        player.frameY = 0;
+        player.moving = true;
+    }
+    if (keys[39] && player.x < canvas.width - imageWidth) {
+        player.x += playerSpeed;
+        player.frameY = 2;
+        player.moving = true;
+        score -= 5000;
+    }
+}
+
+function stopUp() {
+    keys[38] = false;
+    player.moving = false;
+}
+
+function doUp() {
+    keys[38] = true;
+    player.moving = true;
+}
+
+upButton.addEventListener("touchstart", doUp);
+upButton.addEventListener("mousedown", doUp);
+upButton.addEventListener("mouseup", stopUp);
+upButton.addEventListener("touchend", stopUp);
+
+function stopDown() {
+    keys[40] = false;
+    player.moving = false;
+}
+
+function doDown() {
+    keys[40] = true;
+    player.moving = true;
+}
+
+downButton.addEventListener("touchstart", doDown);
+downButton.addEventListener("mousedown", doDown);
+downButton.addEventListener("mouseup", stopDown);
+downButton.addEventListener("touchend", stopDown);
+
+function stopLeft() {
+    keys[37] = false;
+    player.moving = false;
+}
+
+function doLeft() {
+    keys[37] = true;
+    player.moving = true;
+}
+
+leftButton.addEventListener("touchstart", doLeft);
+leftButton.addEventListener("mousedown", doLeft);
+leftButton.addEventListener("mouseup", stopLeft);
+leftButton.addEventListener("touchend", stopLeft);
+
+function stopRight() {
+    keys[39] = false;
+    player.moving = false;
+}
+
+function doRight() {
+    keys[39] = true;
+    player.moving = true;
+}
+
+rightButton.addEventListener("touchstart", doRight);
+rightButton.addEventListener("mousedown", doRight);
+rightButton.addEventListener("mouseup", stopRight);
+rightButton.addEventListener("touchend", stopRight);
+
+
 startAnimating(15);
