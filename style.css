@@ -11,7 +11,7 @@ button {
     position: absolute;
     width: 5vmin;
     height: 5vmin;
-    font-size: 2rem;
+    /* font-size: 2rem; */
     border-radius: 10%;
     background-color: lightblue;
     opacity: .6;
