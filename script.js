@@ -206,14 +206,16 @@ function movePlayer() {
     }
 }
 
-function stopUp() {
+function stopUp(event) {
     keys[38] = false;
     player.moving = false;
+    event.stopPropagation();
 }
 
-function doUp() {
+function doUp(event) {
     keys[38] = true;
     player.moving = true;
+    event.stopPropagation();
 }
 
 upButton.addEventListener("touchstart", doUp);
@@ -221,14 +223,16 @@ upButton.addEventListener("mousedown", doUp);
 upButton.addEventListener("mouseup", stopUp);
 upButton.addEventListener("touchend", stopUp);
 
-function stopDown() {
+function stopDown(event) {
     keys[40] = false;
     player.moving = false;
+    event.stopPropagation();
 }
 
-function doDown() {
+function doDown(event) {
     keys[40] = true;
     player.moving = true;
+    event.stopPropagation();
 }
 
 downButton.addEventListener("touchstart", doDown);
@@ -236,14 +240,16 @@ downButton.addEventListener("mousedown", doDown);
 downButton.addEventListener("mouseup", stopDown);
 downButton.addEventListener("touchend", stopDown);
 
-function stopLeft() {
+function stopLeft(event) {
     keys[37] = false;
     player.moving = false;
+    event.stopPropagation();
 }
 
-function doLeft() {
+function doLeft(event) {
     keys[37] = true;
     player.moving = true;
+    event.stopPropagation();
 }
 
 leftButton.addEventListener("touchstart", doLeft);
@@ -251,14 +257,16 @@ leftButton.addEventListener("mousedown", doLeft);
 leftButton.addEventListener("mouseup", stopLeft);
 leftButton.addEventListener("touchend", stopLeft);
 
-function stopRight() {
+function stopRight(event) {
     keys[39] = false;
     player.moving = false;
+    event.stopPropagation();
 }
 
-function doRight() {
+function doRight(event) {
     keys[39] = true;
     player.moving = true;
+    event.stopPropagation();
 }
 
 rightButton.addEventListener("touchstart", doRight);
