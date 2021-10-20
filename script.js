@@ -230,7 +230,7 @@ function movePlayer() {
         player.x -= playerSpeed;
         player.frameY = 1;
         player.moving = true;
-        score -= 5000;
+        score -= 2500;
     }
     if (keys[40] && player.y < canvas.height - imageHeight) {
         player.y += playerSpeed;
@@ -242,7 +242,7 @@ function movePlayer() {
         player.x += playerSpeed;
         player.frameY = 2;
         player.moving = true;
-        score -= 5000;
+        score -= 2500;
     }
 }
 
