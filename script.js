@@ -161,9 +161,9 @@ function animate() {
             ctx.font = '8vmin Creepster';
             ctx.fillText("Score: " + +(score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
         } else {
-            ctx.font = '4vmin Creepster';
+            ctx.font = '6vmin Creepster';
             ctx.fillStyle = 'orange';
-            ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width / 2, canvas.height * .05);
+            ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width * .9, canvas.height * .08);
         }
     }
 
