@@ -8,19 +8,9 @@ let frame = 0;
 let score = 1000 * 1000;
 
 const upButton = document.getElementById("up");
-upButton.style.left = "88vmax";
-upButton.style.top = (canvas.height - .12 * canvasMax) + "px";
 const downButton = document.getElementById("down");
-downButton.style.left = "88vmax";
-downButton.style.top = (canvas.height - .06 * canvasMax) + "px";
 const leftButton = document.getElementById("left");
-leftButton.style.left = "82vmax";
-leftButton.style.top = (canvas.height - .09 * canvasMax) + "px";
 const rightButton = document.getElementById("right");
-rightButton.style.left = "94vmax";
-rightButton.style.top = (canvas.height - .09 * canvasMax) + "px";
-
-
 
 console.log(upButton.style.left)
 

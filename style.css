@@ -16,3 +16,33 @@ button {
     background-color: lightblue;
     opacity: .6;
 }
+
+#button-box {
+    height: 15vmin;
+    width: 15vmin;
+    background-color: orange;
+    filter: brightness(70%);
+    position: absolute;
+    bottom: 5vmin;
+    right: 5vmin;
+    opacity: .75;
+    border-radius: 10%;
+}
+
+#up {
+    left: 5vmin;
+}
+
+#down {
+    left: 5vmin;
+    top: 10vmin;
+}
+
+#left {
+    top: 5vmin;
+}
+
+#right {
+    top: 5vmin;
+    left: 10vmin;
+}
