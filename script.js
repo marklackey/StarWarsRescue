@@ -153,15 +153,17 @@ function animate() {
         handlePlayerFrame();
         frame++;
         score -= 100;
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
         if (GAME_OVER || score <= 0) {
-            ctx.font = '200px Creepster';
-            ctx.fillText("Game Over", canvas.width / 2 - 535, canvas.height / 2 + 70);
-            ctx.font = '80px Creepster';
-            ctx.fillText("Score: " + +(score > 0 ? score : 0), canvas.width / 2 - 335, canvas.height / 2 + 150);
+            ctx.font = '20vmin Creepster';
+            ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+            ctx.font = '8vmin Creepster';
+            ctx.fillText("Score: " + +(score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
         } else {
-            ctx.font = '40px Creepster';
+            ctx.font = '4vmin Creepster';
             ctx.fillStyle = 'orange';
-            ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width / 2 - 135, 40);
+            ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width / 2, canvas.height * .05);
         }
     }
 
