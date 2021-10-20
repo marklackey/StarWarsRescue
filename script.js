@@ -155,15 +155,14 @@ function animate() {
         score -= 100;
         ctx.textBaseline = "middle";
         ctx.textAlign = "center";
+        document.getElementById("score").innerHTML = "Score: " + score;
         if (GAME_OVER || score <= 0) {
+            document.getElementById("score").innerHTML = "";
+            ctx.fillStyle = 'orange';
             ctx.font = '20vmin Creepster';
             ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
             ctx.font = '8vmin Creepster';
             ctx.fillText("Score: " + +(score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
-        } else {
-            ctx.font = '6vmin Creepster';
-            ctx.fillStyle = 'orange';
-            ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width * .9, canvas.height * .08);
         }
     }
 

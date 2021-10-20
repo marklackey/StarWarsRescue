@@ -17,6 +17,17 @@ button {
     opacity: .6;
 }
 
+#score {
+    position: absolute;
+    top: 5vmin;
+    right: 5vmin;
+    z-index: 5;
+    color: orange;
+    font-size: 6vmin;
+    font-family: Creepster;
+    filter: brightness(70%);
+}
+
 #button-box {
     height: 30vmin;
     width: 30vmin;
