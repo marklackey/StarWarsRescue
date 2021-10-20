@@ -31,9 +31,14 @@ const player = {
     height: spriteHeight,
     frameX: 0,
     frameY: 0,
-    speed: 9,
+    speed: canvas.width / 100,
     moving: false
 };
+
+const smoke = {
+    frameX: 0,
+    frameY: 0,
+}
 
 class Pumpkin {
     constructor(x, y) {
@@ -43,7 +48,7 @@ class Pumpkin {
         this.frameY = 1;
         this.width = 124;
         this.height = 118;
-        this.speed = 7;
+        this.speed = .5 * player.speed + .2 * Math.random() * player.speed;
         this.direction = 1;
     }
 }
@@ -76,8 +81,14 @@ const background = new Image();
 background.src = "assets/danger-halloween-image-scary-halloween-background.jpg";
 const pumpkinImg = new Image();
 pumpkinImg.src = "assets/pumpkin.png";
+const smokeImg = new Image();
+smokeImg.src = "assets/pngegg.png"
 
 function drawPlayerSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    // ctx.beginPath();
+    // ctx.rect(dX, dY, dW, dH);
+    // ctx.fill();
+    ctx.drawImage(smokeImg, 256 * smoke.frameX, 256 * smoke.frameY, 256, 256, dX - .1 * dW, dY - .1 * dH, 1.2 * dW, 1.2 * dH)
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
 }
 
@@ -88,6 +99,19 @@ function drawPumpkinSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 function handlePlayerFrame() {
     if (player.frameX < 3 && player.moving) player.frameX++;
     else player.frameX = 0;
+}
+
+function handleSmokeFrame() {
+    if (frame % 2 === 0) {
+        if (smoke.frameX == 3) {
+            smoke.frameX = 0;
+        } else { smoke.frameX++; }
+        if (smoke.frameY == 3) {
+            smoke.frameY = 0;
+        } else {
+            smoke.frameY++;
+        }
+    }
 }
 
 function handlePumpkinFrame(pumpkin) {
@@ -137,7 +161,7 @@ function drawPumpkins() {
 }
 
 function animate() {
-    if (!GAME_OVER) {
+    if (!GAME_OVER && score > 0) {
         requestAnimationFrame(animate);
     }
     now = Date.now();
@@ -151,6 +175,7 @@ function animate() {
             imageWidth, imageHeight);
         movePlayer();
         handlePlayerFrame();
+        handleSmokeFrame();
         frame++;
         score -= 100;
         ctx.textBaseline = "middle";
@@ -187,6 +212,7 @@ function movePlayer() {
         player.y -= playerSpeed;
         player.frameY = 3;
         player.moving = true;
+        score -= 1000;
     }
     if (keys[37] && player.x > 0) {
         player.x -= playerSpeed;
@@ -198,6 +224,7 @@ function movePlayer() {
         player.y += playerSpeed;
         player.frameY = 0;
         player.moving = true;
+        score -= 1000;
     }
     if (keys[39] && player.x < canvas.width - imageWidth) {
         player.x += playerSpeed;
