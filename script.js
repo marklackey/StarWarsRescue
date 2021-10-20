@@ -18,6 +18,7 @@ const NUM_PUMPKINS = 20;
 const SQRT_2 = Math.sqrt(2);
 
 let GAME_OVER = false;
+let GAME_STARTED = false;
 
 const keys = [];
 const spriteWidth = 50;
@@ -172,24 +173,33 @@ function animate() {
         then = now - (elapsed % fpsInterval);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-        drawPumpkins();
-        drawPlayerSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y,
-            imageWidth, imageHeight);
-        movePlayer();
-        handlePlayerFrame();
-        handleSmokeFrame();
-        frame++;
-        score -= 100;
         ctx.textBaseline = "middle";
         ctx.textAlign = "center";
-        document.getElementById("score").innerHTML = "Score: " + score;
-        if (GAME_OVER || score <= 0) {
+        if (GAME_STARTED) {
+            drawPumpkins();
+            drawPlayerSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y,
+                imageWidth, imageHeight);
+            movePlayer();
+            handlePlayerFrame();
+            handleSmokeFrame();
+            frame++;
+            score -= 100;
+            document.getElementById("score").innerHTML = "Score: " + score;
+            if (GAME_OVER || score <= 0) {
+                document.getElementById("score").innerHTML = "";
+                ctx.fillStyle = 'orange';
+                ctx.font = '20vmin Creepster';
+                ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+                ctx.font = '8vmin Creepster';
+                ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
+            }
+        } else {
             document.getElementById("score").innerHTML = "";
             ctx.fillStyle = 'orange';
             ctx.font = '20vmin Creepster';
-            ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+            ctx.fillText("Pumpkin Shuffle", canvas.width / 2, canvas.height / 2);
             ctx.font = '8vmin Creepster';
-            ctx.fillText("Score: " + +(score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
+            ctx.fillText("Press Space to Start", canvas.width / 2, canvas.height * .65);
         }
     }
 
@@ -304,5 +314,11 @@ rightButton.addEventListener("mousedown", doRight);
 rightButton.addEventListener("mouseup", stopRight);
 rightButton.addEventListener("touchend", stopRight);
 
+window.addEventListener("keyup", function(e) {
+    if (e.code === "Space") {
+        GAME_STARTED = true;
+        console.log(GAME_STARTED)
+    }
+});
 
 startAnimating(15);
