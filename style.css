@@ -38,6 +38,7 @@ button {
     right: 1vmin;
     opacity: .75;
     border-radius: 10%;
+    display: none;
 }
 
 #up {
@@ -68,4 +69,5 @@ body {
     -ms-user-select: none;
     /* Internet Explorer/Edge */
     user-select: none;
+    overflow: hidden;
 }

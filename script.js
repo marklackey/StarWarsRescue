@@ -89,7 +89,9 @@ function drawPlayerSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     // ctx.rect(dX, dY, dW, dH);
     // ctx.fill();
     ctx.drawImage(smokeImg, 256 * smoke.frameX, 256 * smoke.frameY, 256, 256, dX - .1 * dW, dY - .1 * dH, 1.2 * dW, 1.2 * dH)
+    ctx.globalAlpha = .8;
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+    ctx.globalAlpha = 1;
 }
 
 function drawPumpkinSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
