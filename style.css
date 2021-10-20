@@ -9,8 +9,8 @@ canvas {
 
 button {
     position: absolute;
-    width: 5vmin;
-    height: 5vmin;
+    width: 10vmin;
+    height: 10vmin;
     /* font-size: 2rem; */
     border-radius: 10%;
     background-color: lightblue;
@@ -18,31 +18,31 @@ button {
 }
 
 #button-box {
-    height: 15vmin;
-    width: 15vmin;
+    height: 30vmin;
+    width: 30vmin;
     background-color: orange;
     filter: brightness(70%);
     position: absolute;
-    bottom: 5vmin;
-    right: 5vmin;
+    bottom: 1vmin;
+    right: 1vmin;
     opacity: .75;
     border-radius: 10%;
 }
 
 #up {
-    left: 5vmin;
+    left: 10vmin;
 }
 
 #down {
-    left: 5vmin;
-    top: 10vmin;
+    left: 10vmin;
+    top: 20vmin;
 }
 
 #left {
-    top: 5vmin;
+    top: 10vmin;
 }
 
 #right {
-    top: 5vmin;
-    left: 10vmin;
+    top: 10vmin;
+    left: 20vmin;
 }
