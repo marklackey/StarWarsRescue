@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.height = isTouchDevice ? window.innerHeight - canvas2.style.height : window.innerHeight;
 const canvasMax = canvas.width > canvas.height ? canvas.width : canvas.height;
 
 let frame = 0;
@@ -11,8 +11,6 @@ const upButton = document.getElementById("up");
 const downButton = document.getElementById("down");
 const leftButton = document.getElementById("left");
 const rightButton = document.getElementById("right");
-
-console.log(upButton.style.left)
 
 const NUM_PUMPKINS = 20;
 const SQRT_2 = Math.sqrt(2);
@@ -246,16 +244,14 @@ function movePlayer() {
     }
 }
 
-function stopUp(event) {
+function stopUp() {
     keys[38] = false;
     player.moving = false;
-    event.stopPropagation();
 }
 
-function doUp(event) {
+function doUp() {
     keys[38] = true;
     player.moving = true;
-    event.stopPropagation();
 }
 
 upButton.addEventListener("touchstart", doUp);
@@ -263,16 +259,14 @@ upButton.addEventListener("mousedown", doUp);
 upButton.addEventListener("mouseup", stopUp);
 upButton.addEventListener("touchend", stopUp);
 
-function stopDown(event) {
+function stopDown() {
     keys[40] = false;
     player.moving = false;
-    event.stopPropagation();
 }
 
-function doDown(event) {
+function doDown() {
     keys[40] = true;
     player.moving = true;
-    event.stopPropagation();
 }
 
 downButton.addEventListener("touchstart", doDown);
@@ -280,16 +274,14 @@ downButton.addEventListener("mousedown", doDown);
 downButton.addEventListener("mouseup", stopDown);
 downButton.addEventListener("touchend", stopDown);
 
-function stopLeft(event) {
+function stopLeft() {
     keys[37] = false;
     player.moving = false;
-    event.stopPropagation();
 }
 
-function doLeft(event) {
+function doLeft() {
     keys[37] = true;
     player.moving = true;
-    event.stopPropagation();
 }
 
 leftButton.addEventListener("touchstart", doLeft);
@@ -297,16 +289,14 @@ leftButton.addEventListener("mousedown", doLeft);
 leftButton.addEventListener("mouseup", stopLeft);
 leftButton.addEventListener("touchend", stopLeft);
 
-function stopRight(event) {
+function stopRight() {
     keys[39] = false;
     player.moving = false;
-    event.stopPropagation();
 }
 
-function doRight(event) {
+function doRight() {
     keys[39] = true;
     player.moving = true;
-    event.stopPropagation();
 }
 
 rightButton.addEventListener("touchstart", doRight);
