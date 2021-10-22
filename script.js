@@ -7,11 +7,6 @@ const canvasMax = canvas.width > canvas.height ? canvas.width : canvas.height;
 let frame = 0;
 let score = 1000 * 1000;
 
-const upButton = document.getElementById("up");
-const downButton = document.getElementById("down");
-const leftButton = document.getElementById("left");
-const rightButton = document.getElementById("right");
-
 const NUM_PUMPKINS = 20;
 const SQRT_2 = Math.sqrt(2);
 
@@ -197,7 +192,11 @@ function animate() {
             ctx.font = '20vmin Creepster';
             ctx.fillText("Pumpkin Shuffle", canvas.width / 2, canvas.height / 2);
             ctx.font = '8vmin Creepster';
-            ctx.fillText("Press Space to Start", canvas.width / 2, canvas.height * .65);
+            if (isTouchDevice) {
+                ctx.fillText("Press a Button to Start", canvas.width / 2, canvas.height * .65);
+            } else {
+                ctx.fillText("Press Space to Start", canvas.width / 2, canvas.height * .65);
+            }
         }
     }
 
@@ -254,11 +253,6 @@ function doUp() {
     player.moving = true;
 }
 
-upButton.addEventListener("touchstart", doUp);
-upButton.addEventListener("mousedown", doUp);
-upButton.addEventListener("mouseup", stopUp);
-upButton.addEventListener("touchend", stopUp);
-
 function stopDown() {
     keys[40] = false;
     player.moving = false;
@@ -268,11 +262,6 @@ function doDown() {
     keys[40] = true;
     player.moving = true;
 }
-
-downButton.addEventListener("touchstart", doDown);
-downButton.addEventListener("mousedown", doDown);
-downButton.addEventListener("mouseup", stopDown);
-downButton.addEventListener("touchend", stopDown);
 
 function stopLeft() {
     keys[37] = false;
@@ -284,11 +273,6 @@ function doLeft() {
     player.moving = true;
 }
 
-leftButton.addEventListener("touchstart", doLeft);
-leftButton.addEventListener("mousedown", doLeft);
-leftButton.addEventListener("mouseup", stopLeft);
-leftButton.addEventListener("touchend", stopLeft);
-
 function stopRight() {
     keys[39] = false;
     player.moving = false;
@@ -299,15 +283,9 @@ function doRight() {
     player.moving = true;
 }
 
-rightButton.addEventListener("touchstart", doRight);
-rightButton.addEventListener("mousedown", doRight);
-rightButton.addEventListener("mouseup", stopRight);
-rightButton.addEventListener("touchend", stopRight);
-
 window.addEventListener("keyup", function(e) {
     if (e.code === "Space") {
         GAME_STARTED = true;
-        console.log(GAME_STARTED)
     }
 });
 

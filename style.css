@@ -13,16 +13,6 @@
     right: 1vmin;
 }
 
-button {
-    position: absolute;
-    width: 10vmin;
-    height: 10vmin;
-    /* font-size: 2rem; */
-    border-radius: 10%;
-    background-color: lightblue;
-    opacity: .6;
-}
-
 #score {
     position: absolute;
     top: 5vmin;
@@ -32,37 +22,6 @@ button {
     font-size: 6vmin;
     font-family: Creepster;
     filter: brightness(70%);
-}
-
-#button-box {
-    height: 30vmin;
-    width: 30vmin;
-    background-color: orange;
-    filter: brightness(70%);
-    position: absolute;
-    bottom: 1vmin;
-    right: 1vmin;
-    opacity: .75;
-    border-radius: 10%;
-    display: none;
-}
-
-#up {
-    left: 10vmin;
-}
-
-#down {
-    left: 10vmin;
-    top: 20vmin;
-}
-
-#left {
-    top: 10vmin;
-}
-
-#right {
-    top: 10vmin;
-    left: 20vmin;
 }
 
 body {
