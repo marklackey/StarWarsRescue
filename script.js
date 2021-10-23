@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
-canvas.height = isTouchDevice ? window.innerHeight - canvas2.style.height : window.innerHeight;
+canvas.height = window.innerHeight;
 const canvasMax = canvas.width > canvas.height ? canvas.width : canvas.height;
 
 let frame = 0;
@@ -25,7 +25,7 @@ const player = {
     height: spriteHeight,
     frameX: 0,
     frameY: 0,
-    speed: canvas.width / 100,
+    speed: canvasMax / 100,
     moving: false
 };
 
@@ -50,7 +50,6 @@ class Pumpkin {
 const pumpkins = [];
 let count = 0;
 for (let i = 0; i < NUM_PUMPKINS; i++) {
-    // pumpkins[i] = new Pumpkin(Math.random() * (canvas.width - player.width), Math.random() * (canvas.height - player.height));
     let collision = true;
     while (collision) {
         pumpkins[i] = new Pumpkin(Math.random() * (canvas.width - imageWidth), Math.random() * (canvas.height - imageHeight));
@@ -181,7 +180,7 @@ function animate() {
             if (GAME_OVER || score <= 0) {
                 document.getElementById("score").innerHTML = "";
                 ctx.fillStyle = 'orange';
-                ctx.font = '20vmin Creepster';
+                ctx.font = '15vmin Creepster';
                 ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
                 ctx.font = '8vmin Creepster';
                 ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
@@ -189,7 +188,7 @@ function animate() {
         } else {
             document.getElementById("score").innerHTML = "";
             ctx.fillStyle = 'orange';
-            ctx.font = '20vmin Creepster';
+            ctx.font = '15vmin Creepster';
             ctx.fillText("Pumpkin Shuffle", canvas.width / 2, canvas.height / 2);
             ctx.font = '8vmin Creepster';
             if (isTouchDevice) {
@@ -197,6 +196,11 @@ function animate() {
             } else {
                 ctx.fillText("Press Space to Start", canvas.width / 2, canvas.height * .65);
             }
+        }
+        if (isTouchDevice) {
+            display.buffer.clearRect(0, 0, display.buffer.canvas.width, display.buffer.canvas.height);
+            display.renderButtons(controller.buttons);
+            display.render();
         }
     }
 

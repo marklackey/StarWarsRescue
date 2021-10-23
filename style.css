@@ -11,6 +11,8 @@
     position: absolute;
     bottom: 1vmin;
     right: 1vmin;
+    /* z-index: 2; */
+    /* background-color: blueviolet; */
 }
 
 #score {
