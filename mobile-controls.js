@@ -3,7 +3,7 @@
 var Button, controller, display;
 
 let arrowU = new Image();
-arrowU.src = "assets/arrow.png";
+arrowU.src = "assets/wtf.png";
 let arrowD = new Image();
 arrowD.src = "assets/arrowD.png";
 let arrowR = new Image();
