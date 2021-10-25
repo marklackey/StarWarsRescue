@@ -16,8 +16,9 @@ let GAME_STARTED = false;
 const keys = [];
 const spriteWidth = 50;
 const spriteHeight = 48;
-const imageWidth = spriteWidth * canvas.width / 800;
-const imageHeight = spriteHeight * canvas.height / 500;
+let imageWidth = spriteWidth * canvas.width / 800;
+let imageHeight = spriteHeight * canvas.height / 500;
+
 const player = {
     x: Math.random() * (canvas.width - imageWidth),
     y: Math.random() * (canvas.height - imageHeight),
@@ -68,19 +69,26 @@ function handlePumpkinCollision(p1, p2) {
         ((p1.y + player.height) > p2.y && p1.y < (p2.y + imageHeight)));
 }
 
+function isDesktop() {
+    return canvas.width > 600;
+}
+
 const playerSprite = new Image();
 playerSprite.src = "assets/death_scythe.png"; /* check out this character and more at http://untamed.wild-refuge.net/rmxpresources.php?characters */
 const background = new Image();
-background.src = "assets/danger-halloween-image-scary-halloween-background.jpg";
+if (isDesktop()) {
+    background.src = "assets/halloween-background.jpg";
+} else {
+    background.src = "assets/halloween-background-mobile.jpg";
+    imageWidth = imageWidth * 1.5;
+    imageHeight = imageHeight * 1.5;
+}
 const pumpkinImg = new Image();
 pumpkinImg.src = "assets/pumpkin.png";
 const smokeImg = new Image();
 smokeImg.src = "assets/pngegg.png"
 
 function drawPlayerSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
-    // ctx.beginPath();
-    // ctx.rect(dX, dY, dW, dH);
-    // ctx.fill();
     ctx.drawImage(smokeImg, 256 * smoke.frameX, 256 * smoke.frameY, 256, 256, dX - .1 * dW, dY - .1 * dH, 1.2 * dW, 1.2 * dH)
     ctx.globalAlpha = .8;
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
@@ -125,15 +133,6 @@ function handlePumpkinFrame(pumpkin) {
     pumpkin.x += pumpkin.direction * pumpkin.speed;
 }
 
-let fps, fpsInterval, startTime, now, then, elapsed;
-
-function startAnimating(fps) {
-    fpsInterval = 1000 / fps;
-    then = Date.now();
-    startTime = then;
-    animate();
-}
-
 function drawPumpkins() {
     let count = 0;
     for (var i = 0; i < NUM_PUMPKINS; i++) {
@@ -153,6 +152,15 @@ function drawPumpkins() {
             }
         }
     }
+}
+
+let fps, fpsInterval, startTime, now, then, elapsed;
+
+function startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    animate();
 }
 
 function animate() {
@@ -221,70 +229,39 @@ function movePlayer() {
     if ((keys[38] && keys[37]) || (keys[38] && keys[39]) || (keys[40] && keys[37]) || (keys[40] && keys[39])) {
         playerSpeed = playerSpeed / SQRT_2;
     }
-    if (keys[38] && player.y > 0) {
+    if (keys[38] && player.y > 0) { // Up
         player.y -= playerSpeed;
         player.frameY = 3;
         player.moving = true;
         score -= 1000;
     }
-    if (keys[37] && player.x > 0) {
+    if (keys[37] && player.x > 0) { // Left
         player.x -= playerSpeed;
         player.frameY = 1;
         player.moving = true;
         score -= 2500;
     }
-    if (keys[40] && player.y < canvas.height - imageHeight) {
+    if (keys[40] && player.y < canvas.height - imageHeight) { //Down
         player.y += playerSpeed;
         player.frameY = 0;
         player.moving = true;
         score -= 1000;
     }
-    if (keys[39] && player.x < canvas.width - imageWidth) {
+    if (keys[39] && player.x < canvas.width - imageWidth) { // Right
         player.x += playerSpeed;
         player.frameY = 2;
         player.moving = true;
         score -= 2500;
     }
 }
+const LEFT = 37,
+    UP = 38,
+    RIGHT = 39,
+    DOWN = 40;
 
-function stopUp() {
-    keys[38] = false;
-    player.moving = false;
-}
-
-function doUp() {
-    keys[38] = true;
-    player.moving = true;
-}
-
-function stopDown() {
-    keys[40] = false;
-    player.moving = false;
-}
-
-function doDown() {
-    keys[40] = true;
-    player.moving = true;
-}
-
-function stopLeft() {
-    keys[37] = false;
-    player.moving = false;
-}
-
-function doLeft() {
-    keys[37] = true;
-    player.moving = true;
-}
-
-function stopRight() {
-    keys[39] = false;
-    player.moving = false;
-}
-
-function doRight() {
-    keys[39] = true;
-    player.moving = true;
+function moveOrStop(key, moving) {
+    keys[key] = moving;
+    player.moving = moving;
 }
 
 window.addEventListener("keyup", function(e) {
