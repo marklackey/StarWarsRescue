@@ -5,9 +5,11 @@ canvas.height = window.innerHeight;
 const canvasMax = canvas.width > canvas.height ? canvas.width : canvas.height;
 
 let frame = 0;
-let score = 1000 * 1000;
+let score = 0;
 
-const NUM_PUMPKINS = 20;
+let level = 1;
+
+let NUM_PUMPKINS = 5;
 const SQRT_2 = Math.sqrt(2);
 
 let GAME_OVER = false;
@@ -49,24 +51,26 @@ class Pumpkin {
 }
 
 const pumpkins = [];
-let count = 0;
-for (let i = 0; i < NUM_PUMPKINS; i++) {
-    let collision = true;
-    while (collision) {
-        pumpkins[i] = new Pumpkin(Math.random() * (canvas.width - imageWidth), Math.random() * (canvas.height - imageHeight));
-        collision = false;
-        for (let j = 0; j < i; j++) {
-            if (handlePumpkinCollision(pumpkins[i], pumpkins[j]) || handlePumpkinCollision(pumpkins[i], player)) {
-                collision = true;
-                break;
+
+function makePumpkins() {
+    for (let i = 0; i < NUM_PUMPKINS; i++) {
+        let collision = true;
+        while (collision) {
+            pumpkins[i] = new Pumpkin(Math.random() * (canvas.width - imageWidth), Math.random() * (canvas.height - imageHeight));
+            collision = false;
+            for (let j = 0; j < i; j++) {
+                if (handlePumpkinCollision(pumpkins[i], pumpkins[j]) || handlePumpkinCollision(pumpkins[i], player)) {
+                    collision = true;
+                    break;
+                }
             }
         }
     }
 }
 
 function handlePumpkinCollision(p1, p2) {
-    return (((p1.x + player.width) > p2.x && p1.x < (p2.x + imageWidth)) &&
-        ((p1.y + player.height) > p2.y && p1.y < (p2.y + imageHeight)));
+    return (((p1.x + imageWidth) > p2.x && p1.x < (p2.x + imageWidth)) &&
+        ((p1.y + imageHeight) > p2.y && p1.y < (p2.y + imageHeight)));
 }
 
 function isDesktop() {
@@ -132,9 +136,10 @@ function handlePumpkinFrame(pumpkin) {
     }
     pumpkin.x += pumpkin.direction * pumpkin.speed;
 }
+let count = 0;
 
 function drawPumpkins() {
-    let count = 0;
+    count = 0;
     for (var i = 0; i < NUM_PUMPKINS; i++) {
         let pumpkin = pumpkins[i];
         if (pumpkin != null) {
@@ -147,8 +152,13 @@ function drawPumpkins() {
         } else {
             count++;
             if (count == NUM_PUMPKINS) {
-                // console.log("over");
                 GAME_OVER = true;
+                if (level < 6) {
+                    GAME_STARTED = false;
+                    if (score > 0) {
+                        level++;
+                    }
+                }
             }
         }
     }
@@ -164,12 +174,13 @@ function startAnimating(fps) {
 }
 
 function animate() {
-    if (!GAME_OVER && score > 0) {
-        requestAnimationFrame(animate);
-    }
+    requestAnimationFrame(animate);
     now = Date.now();
     elapsed = now - then;
     if (elapsed > fpsInterval) {
+        if (!GAME_OVER && score > 0) {
+            score -= 100;
+        }
         then = now - (elapsed % fpsInterval);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
@@ -183,13 +194,13 @@ function animate() {
             handlePlayerFrame();
             handleSmokeFrame();
             frame++;
-            score -= 100;
             document.getElementById("score").innerHTML = "Score: " + score;
             if (GAME_OVER || score <= 0) {
                 document.getElementById("score").innerHTML = "";
                 ctx.fillStyle = 'orange';
                 ctx.font = '15vmin Creepster';
-                ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+                var gameOverText = level < 6 ? "Game Over" : "You Win!"
+                ctx.fillText(gameOverText, canvas.width / 2, canvas.height / 2);
                 ctx.font = '8vmin Creepster';
                 ctx.fillText("Score: " + (score > 0 ? score : 0), canvas.width / 2, canvas.height * .65);
             }
@@ -199,10 +210,22 @@ function animate() {
             ctx.font = '15vmin Creepster';
             ctx.fillText("Pumpkin Shuffle", canvas.width / 2, canvas.height / 2);
             ctx.font = '8vmin Creepster';
+
+            var scoreText = "";
+            if (score > 0) {
+                scoreText = "Score: " + (score > 0 ? score : 0)
+            }
+            var text = " to Start Level " + level;
             if (isTouchDevice) {
-                ctx.fillText("Press a Button to Start", canvas.width / 2, canvas.height * .65);
+                text = "Press a Button" + text;
             } else {
-                ctx.fillText("Press Space to Start", canvas.width / 2, canvas.height * .65);
+                text = "Press Space" + text;
+            }
+            if (score > 0) {
+                ctx.fillText(scoreText, canvas.width / 2, canvas.height * .65);
+                ctx.fillText(text, canvas.width / 2, canvas.height * .75);
+            } else {
+                ctx.fillText(text, canvas.width / 2, canvas.height * .65);
             }
         }
         if (isTouchDevice) {
@@ -265,8 +288,12 @@ function moveOrStop(key, moving) {
 }
 
 window.addEventListener("keyup", function(e) {
-    if (e.code === "Space") {
+    if (!GAME_STARTED && e.code === "Space") {
+        score += 1000 * 1000;
+        NUM_PUMPKINS += 10;
+        makePumpkins();
         GAME_STARTED = true;
+        GAME_OVER = false;
     }
 });
 

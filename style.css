@@ -24,6 +24,7 @@
     font-size: 6vmin;
     font-family: Creepster;
     filter: brightness(70%);
+    min-width: 40vmin;
 }
 
 body {
